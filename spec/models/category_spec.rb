@@ -6,6 +6,7 @@ describe Category do
   subject { @category }
 
   it { should respond_to(:name)}
+  it { should respond_to(:products)}
 
   it { should be_valid }
 
