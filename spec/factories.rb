@@ -6,6 +6,6 @@ FactoryGirl.define do
 	factory :product do
 		sequence(:name)  { |n| "Product #{n}" }
 		active true
-		association :categoty,    factory: :category
+		association :category,    factory: :category
 	end
 end

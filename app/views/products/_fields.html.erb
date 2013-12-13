@@ -1,0 +1,41 @@
+
+<%= form_for(@product) do |f| %>
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this venda from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+	<div>
+	  <%= f.label :name, "Nome:" %>
+	  <%= f.text_field :name %>
+	</div>
+
+  <div>
+  	<%= f.label :category_id, "Categoria:" %>
+	  <%= f.collection_select :category_id, Category.order('name'), :id, :name, prompt: true %>
+  </div>  
+
+	<div>
+    <%= f.label :active, "Ativo" %>
+    <%= f.check_box :active  %>
+    <%# if @product.new_record? %>
+      <%#= f.check_box :active, :checked => true  %>
+    <%# else %>
+      <%#= f.check_box :active, :checked => @product.active  %>
+    <%# end %>
+	</div>
+	
+  <div>
+  	<%= f.submit "Salvar" %> 
+  </div>
+
+<% end %>
+
+<%= link_to "Cancelar", products_path %>
