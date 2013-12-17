@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+
   def index
   	@products = Product.includes(:category)
   end
@@ -42,15 +43,42 @@ class ProductsController < ApplicationController
   end
 
   def destroy_selected
-  	redirect_to products_path
+    if !params[:product_ids].nil?
+      @remove_ids = params[:product_ids].split(",")
+      #Product.where(id: [params[:product_ids]]).destroy_all
+    end
+    @products = Product.includes(:category)
   end 
   
   def ativate_selected
-  	redirect_to products_path
+    if !params[:product_ids].nil?
+      @update_ids = params[:product_ids].split(",") if !params[:product_ids].nil?
+      Product.where(id: @update_ids).update_all(active: true)
+    end
+    @products = Product.includes(:category)
   end
 
   def deactivate_selected
-  	redirect_to products_path
+    if !params[:product_ids].nil?
+      @update_ids = params[:product_ids].split(",") if !params[:product_ids].nil?
+      Product.where(id: @update_ids).update_all(active: false)
+    end
+    @products = Product.includes(:category)
+  end
+
+  def filter
+    @products = Product.where(category_id: params[:select_category])
+    respond_to do |format|
+      format.html 
+   end
+  end
+
+  def ativate_deactivate
+    @product = Product.find(params[:id])
+    @product.toggle(:active)
+    @product.save
+    flash[:notice] = @product.active ? "Products activated sucessfully.": "Products deactivated sucessfully."
+    redirect_to products_path
   end
 
   private

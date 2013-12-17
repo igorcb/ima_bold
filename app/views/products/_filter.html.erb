@@ -1,0 +1,6 @@
+<%= form_tag filter_products_path, method: :get do %>
+  <%= label_tag :categoria, "Categoria:"  %>
+  <%= select_tag "select_category", options_from_collection_for_select(Category.order('name'), "id", "name") , include_blank: true %>
+  <%= submit_tag "Filter", filtering: nil, class: "button" %>
+  <%= link_to "Limpar Filtro", products_path if !params[:select_category].nil? %>
+<% end %>

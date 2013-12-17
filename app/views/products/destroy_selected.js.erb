@@ -1,0 +1,5 @@
+<%# @remove_ids.each do |a| %>
+//  $('#id_product_<%= a %>').remove();
+<%# end %>
+// $("#notice").show(300);
+$("#product_list").html("<%= j( render "products", product: @products ) %>");

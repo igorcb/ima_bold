@@ -2,11 +2,17 @@ ImaBold::Application.routes.draw do
   resources :products do
     collection do
       delete :destroy_selected
-      get :ativate_selected
+      post :ativate_selected
       get :deactivate_selected
       get :filter
     end
   end
+  post :filter, to: "products#filter"
+  post "destroy_selected" => "products#destroy_selected", :as => "destroy_selected",  via: [:delete]
+  post "ativate_selected" => "products#ativate_selected", :as => "ativate_selected",  via: [:post]
+  post "deactivate_selected" => "products#deactivate_selected", :as => "deactivate_selected",  via: [:post]
+  match 'products/ativate_deactivate/:id', to: 'products#ativate_deactivate', via: [:post]
+
   root to: 'products#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

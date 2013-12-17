@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listagem de Produtos</h1>
+
+<%= link_to 'Remover todos selecionados', 'destroy_selected', :method => "delete", remote: true, id:"delete_links" %>
+<%= link_to "Ativar todos selecionados", ativate_selected_products_path %>
+<%= link_to "Desativar todos selecionados", deactivate_selected_products_path %>
+
+<%= render 'filter' %>
+
+<hr>
+
+<%= link_to "Novo Produto", new_product_path %>
+
+<%#= form_tag destroy_selected_products_path, :method => "delete", :id => "form_id", :remote => true do %>
+<%= form_tag :id => "form_id", :remote => true do %>
+<div id="product_list"><%= render "products", products: @products %> </div>
+<% end %>
